@@ -8,4 +8,5 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ QuickBeforeAfterTest.class, StringHelperTest.class, StringParameterizedTest.class })
 public class AllTests {
 
+	
 }
