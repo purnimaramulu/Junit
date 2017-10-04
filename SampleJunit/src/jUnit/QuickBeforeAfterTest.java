@@ -61,7 +61,25 @@ public class QuickBeforeAfterTest {
 		
 		Arrays.sort(arr);
 		
-		assertEquals(expected,arr);
+		assertArrayEquals(expected,arr);
+	}
+	
+	
+	@Test(expected= NullPointerException.class)
+	public void Arraysort_null(){
+		int[] arr = null;
+		Arrays.sort(arr);
+	}
+	
+	@Test(timeout = 10)
+	public void Arraysort_Performance(){
+		int[] arr = {1,2,3,4};
+		for(int i = 1; i<=100000; i++){
+			arr[0] =1;
+			Arrays.sort(arr);
+			
+		}
+	
 	}
 	
 }
