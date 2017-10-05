@@ -1,6 +1,7 @@
 package com.Junit;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class StringHelper {
 
@@ -31,5 +32,34 @@ public class StringHelper {
 	public static boolean isItSunny() {
 		return true;
 	}
+	
+	public static int findMax(int arr[]){  
+        int max=0;  
+        for(int i=1;i<arr.length;i++){  
+            if(max<arr[i])  
+                max=arr[i];  
+        }  
+        return max;  
+    }
+	public boolean isEvenNumber(int number){
+		
+		boolean result= false;
+		if(number  % 2 == 0 ){
+			return true;
+		}
 
+		return result;
+
+	}
+	public boolean isOddNumber(int number){
+		
+		boolean result= false;
+		if(number  % 3 == 0 ){
+			return true;
+		}
+
+		return result;
+
+	}
+	
 }

@@ -64,7 +64,7 @@ public class QuickBeforeAfterTest {
 		assertArrayEquals(expected,arr);
 	}
 	
-	//handling exceptons
+	
 	@Test(expected= NullPointerException.class)
 	public void Arraysort_null(){
 		int[] arr = null;
