@@ -2,14 +2,24 @@ package jUnit;
 
 import static org.junit.Assert.*;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import javax.naming.NameNotFoundException;
+
 import static org.hamcrest.CoreMatchers.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 import static org.hamcrest.CoreMatchers.*;
 //import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -18,10 +28,16 @@ import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInA
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 import org.hamcrest.collection.IsEmptyCollection;
+import org.hamcrest.collection.IsMapContaining;
+
 import static org.hamcrest.Matchers.hasProperty;
+import org.junit.rules.Timeout;
 
 import com.Junit.Login;
+import com.Junit.MessageUtil;
 import com.Junit.StringHelper;
+
+import jdk.nashorn.internal.ir.annotations.Ignore;
 
 public class StringHelperTest {
 	StringHelper help;
@@ -177,7 +193,87 @@ public class StringHelperTest {
 	    	 new Login("puri", 20)
 	    	   
 	    	));
-      
 	    }
+	    
+	    @Test
+	    public void testAssertMap() {
+	    	 Map<String, String> map = new HashMap<>();
+	         map.put("j", "java");
+	         map.put("c", "c++");
+	         map.put("p", "python");
+	         map.put("n", "node");
+	        
+
+	         Map<String, String> expected = new HashMap<>();
+	         expected.put("n", "node");
+	         expected.put("c", "c++");
+	         expected.put("j", "java");
+	         expected.put("p", "python");
+
+	        
+	        assertThat(map, is(expected));
+
+	        assertThat(map.size(),is(4));
+	        
+	        assertThat(map, IsMapContaining.hasEntry("n", "node"));
+	        
+	        assertThat(map, not(IsMapContaining.hasEntry("r", "ruby")));
+	        
+	        assertThat(map, IsMapContaining.hasKey("j"));
+	        
+	        assertThat(map, IsMapContaining.hasValue("java"));
+
+	    }
+	    
+	    @Rule
+	    public ExpectedException thrown = ExpectedException.none();
+	    
+	    @Test
+	    public void testDivisionWithException() {
+
+	        thrown.expect(ArithmeticException.class);
+	        thrown.expectMessage(containsString("/ by zero"));
+
+	        int i = 1 / 0;
+
+	    }
+
+//	    @Rule
+//	    public Timeout globalTimeout = Timeout.seconds(10);
+//	    
+//	    @Test
+//	    public void testSlowMethod() throws InterruptedException {
+//	    
+//	        TimeUnit.SECONDS.sleep(5000);
+//	    }
+	   
+	    
+
+	    String message = "Purnima";	
+	    MessageUtil messageUtil = new MessageUtil(message);
+	    	   
+	    @Ignore
+	    @Test
+	    public void testPrintMessage() {
+	    	
+	    	message = "Purnima";
+	    	
+	    	
+	    	assertEquals(message,messageUtil.printMessage());
+	    }
+
+	    @Test
+	    public void testSalutationMessage() {
+	    	
+	    	message = "Hi!" + "Purnima";
+	    	
+	    	
+	    	assertEquals(message,messageUtil.salutationMessage());
+	    }
+	    		
+	  
+	  
+	    
+	 
 
 }
