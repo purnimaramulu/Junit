@@ -3,6 +3,11 @@ package jUnit;
 import static org.junit.Assert.*;
 
 
+import static java.lang.System.getProperties;
+
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,6 +19,8 @@ import java.util.concurrent.TimeUnit;
 import javax.naming.NameNotFoundException;
 
 import static org.hamcrest.CoreMatchers.*;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -271,9 +278,23 @@ public class StringHelperTest {
 	    	assertEquals(message,messageUtil.salutationMessage());
 	    }
 	    		
-	  
-	  
+	    private  OutputStream Content = new ByteArrayOutputStream();
+
+	    @Before
+	    public void setUpStreams() {
+	        System.setOut(new PrintStream(Content));
+	    }
 	    
-	 
+	    @After
+	    public void cleanUpStreams() {
+	        System.setOut(null);
+	    }
+	    
+	    @Test
+	    public void out() {
+	        System.out.print("hello");
+	        assertEquals("hello", Content.toString());
+	    }
+
 
 }
